@@ -33,7 +33,9 @@ class profileController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('profileshow', compact('user'));
+        $articles = $user->articles;
+
+        return view('profileshow', compact('user', 'articles'));
     }
 
     public function update(Request $request, $user_id)
@@ -45,7 +47,7 @@ class profileController extends Controller
         $user->username = $request->get('username');
         $user->email = $request->get('email');
 
-        // Save the $user object
+        // Save the $user object;
         $user->save();
 
 

@@ -1,5 +1,5 @@
 @if (Auth::check())
-<div class="navbar">
+<div class="navbar" style="margin-top: 10px; margin-left: 10px;">
     <div class="col-md-4">
         <ul class="nav">
             <li><a href="/">Home</a></li>
@@ -10,7 +10,7 @@
     </div>
 </div>
 @else
-<div class="navbar">
+<div class="navbar" style="margin-top: 10px; margin-left: 10px;">
     <div class="col-md-4">
         <ul class="nav">
             <li><a href="/">Home</a></li>

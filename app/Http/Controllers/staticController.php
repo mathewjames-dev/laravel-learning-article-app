@@ -11,6 +11,9 @@ namespace App\Http\Controllers;
 
 use App\Favcitie;
 use App\Favteam;
+use App\User;
+use App\Article;
+use DB;
 
 class staticController extends Controller
 {
@@ -33,7 +36,15 @@ class staticController extends Controller
     }
 
     public function home(){
-        return view('home');
+
+        $users = User::count();
+        //$latestUser = User::orderBy('created_at', 'DESC')->first();
+        $latestUsers = User::orderBy('created_at', 'DESC')->take(3)->get();
+        //This will get the first 3 in descending order and put it to a collection
+
+        $articles = Article::orderBy('created_at', 'DESC')->take(3)->get();
+
+        return view('home', compact('users', 'latestUsers', 'articles'));
     }
 
     //Basic Controller page for all the static things on the blog. Simple functions with variables

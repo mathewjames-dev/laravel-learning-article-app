@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\User;
+use App\Tag;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,7 +21,7 @@ class articleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'create']);
+        $this->middleware('auth');
     }
 
     public function index()
@@ -47,7 +49,10 @@ class articleController extends Controller
 //        if (Auth::guest()){
 //            redirect('/login');
 //        }
-        return view('artcreate');
+        $tags = \App\Tag::lists('name', 'id');
+        //This gets the model tag into an object and then will list all the tags by just there name.
+
+        return view('artcreate', compact('tags'));
     }
 
     public function store(ArticleRequest $request)
@@ -55,33 +60,43 @@ class articleController extends Controller
         //This function gets the request from the CreateArticleRequest which has some rules for the
         //actual creation of an article. It will create a new article from the request and put it into the variable
         //article.
+        //$user = User::isLoggedIn();
+        $user = Auth::user();
 
         $article = new Article($request->all()); //doesn't have user id set but laravel will do it auto behind scences
         //as we referenced it in the way below
+        $article->user_id = $user->id;
+        //Need to give the article the user id before we save
+
+        $article->save();
 
 //        Article::create($request->all());
 //        return redirect('articles');
 
-        Auth::user()->articles()->save($article); //Then it will get the authenticated users articles then save a new one.
+        $article->tags()->attach($request->input('tag_list'));
+        //This will get the article and attatch the tags from the input when we create an article
+
+        //Then it will get the authenticated users articles then save a new one.
+        Auth::user()->articles()->save($article);
+
+
+        session()->flash('flash_message', 'Your article has been created!');
 
         return redirect('articles');
+        //->with([ 'flash_message' => 'Your article has been created!', 'flash_message_important' => true]);
+        //This is another way to do a flash message
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $article = Article::findOrFail($id);
 
-        $user = Auth::user();
-        $user->id = $request->get('id');
+        $tags = Tag::lists('name', 'id');
 
-        if ($id == $user->id)
-        {
-            return view('artedit', compact('article'));
-        }
+        return view('artedit', compact('article', 'userid', 'user', 'tags'));
 
 //We do find or fail so if it doesnt find an article with the id you want then it will give an error page.
 
-        return view('home');
     }
 
     public function update($id, ArticleRequest $request)
@@ -89,6 +104,13 @@ class articleController extends Controller
         $article = Article::findOrFail($id);
 
         $article->update($request->all());
+
+        $article->tags()->sync($request->input('tag_list'));
+
+        //Attach is attaching something for example adding tags
+        //detach is detaching which could be used in removing tags
+        //sync is when you want to sync everything up example adding and removing at same time.
+        //the line of code above will get the input from the tag_list part of the form
 
         //here is the update method for the update form for an article. We have to first pass the article we want
         //to update and then we have to use the values from the form to use the article in the code and then

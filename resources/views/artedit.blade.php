@@ -1,10 +1,12 @@
 @extends('master')
-@include('header')
-
+<header class="col-md-4">
+    @include('partials.header')
+</header>
 @section('content')
     <h1>Edit {!! $article->title !!}</h1>
 
     <hr/>
+    <br><br><br><br><br>
     {!! Form::model($article, ['method' => 'PATCH', 'action' => ['articleController@update', $article->id]]) !!}
     <?php
     //The above is a patch method which will patch something obviously. The action we want it to do though
@@ -33,6 +35,11 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('tag_list', 'Tags:') !!}
+        {!! Form::select('tag_list[]', $tags, null, ['class' => 'form-control', 'multiple']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::submit('Edit Article', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
@@ -41,5 +48,4 @@
     //Put them in a list on the page.
     ?>
 
-    @include('errors.list')
 @stop

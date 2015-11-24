@@ -1,7 +1,7 @@
 @extends('master')
 
     <header class="col-md-4">
-        @include('header')
+        @include('partials.header')
     </header>
 @section('content')
     <?php

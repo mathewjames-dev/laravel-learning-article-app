@@ -2,7 +2,7 @@
 
 @if (Auth::check())
 <header class="col-md-4">
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 10px; margin-left: 10px;">
         <ul class="nav">
             <li><a href="/">Home</a></li>
             <li><a href="/profile">Profile</a></li>
@@ -13,7 +13,7 @@
 </header>
 @else
     <header class="col-md-4">
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin-top: 10px; margin-left: 10px;">
             <ul class="nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/auth/login">Login</a></li>
@@ -41,8 +41,10 @@
             </h2>
 
             <div class="body">{{ $article->body }}</div>
+
         </article>
     @endforeach
+
 </div>
 
 <br><br><br><br>

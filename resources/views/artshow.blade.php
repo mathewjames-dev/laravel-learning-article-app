@@ -1,6 +1,6 @@
 @extends('master')
 <header class="col-md-4">
-    @include('header')
+    @include('partials.header')
 </header>
 @section('content')
 
@@ -19,6 +19,17 @@
 
         <article>
             <div class="body">{{ $article->body }}</div>
+            @unless ($article->tags->isEmpty())
+            <div class="col-md-8"><h5>Tags:</h5>
+                <ul>
+                    @foreach ($article->tags as $tag)
+                        <li>
+                            {{ $tag->name }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endunless
+            </div>
         </article>
 
     {!! Form::model($article, ['method' => 'GET', 'action' => ['articleController@edit', $article->id]]) !!}

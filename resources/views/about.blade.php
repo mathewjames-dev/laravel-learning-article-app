@@ -2,7 +2,7 @@
 
 @section ('content')
     <header id="header" class="col-md-4">
-        @include('header')
+        @include('partials.header')
     </header>
     <div id="content" class="col-md-8">
     <h1>About Me!</h1>
