@@ -15,12 +15,18 @@
 
 <div class="form-group">
     {!! Form::label('tag_list', 'Tags:') !!}
-    {!! Form::select('tag_list[]', $tags, null, ['class' => 'form-control', 'multiple']) !!}
+    {!! Form::select('tag_list[]', $tags, null, ['id' => 'tag_list', 'class' => 'form-control', 'multiple']) !!}
 </div>
 
 <div class="form-group">
     {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}
 </div>
+
+@section('footer')
+    <script>
+        $("#tag_list").select2();
+    </script>
+@endsection
 
 <?php
 //this is a partial view. This is a standard layout for a form that i used in the create and edit. On the submit

@@ -1,5 +1,5 @@
 @extends ('master')
-<header class="col-md-4">
+<header>
     @include('partials.header')
 </header>
 @section('content')

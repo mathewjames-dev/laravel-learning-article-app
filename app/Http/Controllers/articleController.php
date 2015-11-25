@@ -36,10 +36,12 @@ class articleController extends Controller
 
     public function show($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::published()->findOrFail($id);
 
         //This code is for when you want to show a article. It will get the variable/s inside of $article
         // and then it will also output/find each id of each article as well.
+
+
 
         return view('artshow', compact('article'));
     }
@@ -89,7 +91,7 @@ class articleController extends Controller
 
     public function edit($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::published()->findOrFail($id);
 
         $tags = Tag::lists('name', 'id');
 

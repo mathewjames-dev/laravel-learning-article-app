@@ -1,10 +1,10 @@
 @extends ('master')
 
 @section ('content')
-    <header id="header" class="col-md-4">
+    <header id="header">
         @include('partials.header')
     </header>
-    <div id="content" class="col-md-8">
+    <div id="content">
     <h1>About Me!</h1>
 
     <hr></hr>

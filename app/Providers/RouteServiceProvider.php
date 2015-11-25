@@ -27,6 +27,14 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        $router->bind('tags', function($name)
+        {
+            return \App\Tag::where('name', $name)->firstOrFail();
+        });
+        //Above is creating an override for the code below. The code below will look for a tag with a given id in our
+        //blog but the override above will make sure it looks for the tag with the given name.
+        // $router->model('tags', 'App\Tag');
     }
 
     /**

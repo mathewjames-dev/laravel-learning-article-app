@@ -1,29 +1,45 @@
 @extends('master')
 
 @if (Auth::check())
-<header class="col-md-4">
-    <div class="col-md-4" style="margin-top: 10px; margin-left: 10px;">
-        <ul class="nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-            <li><a href="/articles/create">Create Article</a></li>
-        </ul>
-    </div>
-</header>
-@else
-    <header class="col-md-4">
-        <div class="col-md-4" style="margin-top: 10px; margin-left: 10px;">
-            <ul class="nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/auth/login">Login</a></li>
-                <li><a href="/auth/register">Register</a></li>
-                <li><a href="/articles">Articles</a></li>
-            </ul>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">RandomName</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/auth/logout">Logout</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Articles
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/articles">All Articles</a></li>
+                            <li><a href="/articles/create">Create Article!</a></li>
+                        </ul></li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
+@else
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">RandomName</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/auth/login">Login</a></li>
+                    <li><a href="/auth/register">Register</a></li>
+                    <li><a href="/articles">Articles</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 @endif
-<div id="content" class="col-md-8">
+<div id="content">
 @section('content')
     <h1>Articles</h1>
 

@@ -40,3 +40,5 @@ Route::get('foo', ['middleware' => 'admin', function()
 {
     return "admin page";
 }]);
+
+Route::get('tags/{tags}', 'tagsController@show');

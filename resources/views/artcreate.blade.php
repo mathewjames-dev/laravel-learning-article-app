@@ -1,10 +1,10 @@
 @extends('master')
-<header class="col-md-4">
+<header>
     @include('partials.header')
 </header>
 @section('content')
 
-    <div id="content" class="col-md-8">
+    <div id="content">
     <h1>Write a new Article</h1>
     <hr/>
     {!! Form::open(['url' => 'articles']) !!}
